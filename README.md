@@ -9,7 +9,7 @@ This repository applies information-theoretic and digital signal processing (DSP
 ## Repository Structure
 
 ```
-horse-racing-signal/
+Hippodrome/
 │
 ├── data/
 │   ├── raw/                          # Raw CSV data (not tracked in git)
@@ -59,11 +59,8 @@ horse-racing-signal/
 
 ```bash
 # Clone the repository
-git clone <repo-url>
-cd horse-racing-signal
-
-# Install dependencies
-pip install -r requirements.txt
+git clone https://github.com/indubitablysrivathsan/Hippodrome
+cd Hippodrome
 
 # Place raw data files in data/raw/
 # (meetings.csv, races.csv, runners.csv, exotics.csv)
@@ -74,14 +71,6 @@ pip install -r requirements.txt
 ## Running the Pipeline
 
 The pipeline transforms raw CSV data into processed analysis-ready files.
-
-### Option 1: Run all steps at once
-
-```bash
-bash pipeline/run_all.sh
-```
-
-### Option 2: Run step by step
 
 ```bash
 python pipeline/01_parse_odds.py        # → data/processed/entries_market.csv
@@ -97,7 +86,7 @@ Each script prints a validation summary showing row counts, statistics, and data
 ## Running the Notebooks
 
 ```bash
-cd horse-racing-signal
+cd Hippodrome
 jupyter notebook
 ```
 
@@ -136,11 +125,11 @@ All figures are saved to `outputs/figures/`.
 
 | Unit | Notebook | Experiments | Topics |
 |------|----------|-------------|--------|
-| 1 | `unit1_time_domain.ipynb` | 1, 2, 3 | Signal visualisation, autocorrelation, convolution |
-| 2 | `unit2_fft_psd.ipynb` | 4 | FFT, PSD (Welch, periodogram), 1/f analysis |
-| 3 | `unit3_wavelets.ipynb` | 5, 6 | DWT decomposition, CWT scalogram, regime detection |
-| 4 | `unit4_features.ipynb` | 7, 8, 9 | STFT spectrogram, bandpass filtering, signal denoising |
-| 5 | `unit5_microproject.ipynb` | CO1–CO5 | Capstone: market efficiency, calibration, LZ76 complexity |
+| 1 | `time_domain.ipynb` | 1, 2, 3 | Signal visualisation, autocorrelation, convolution |
+| 2 | `fft_psd.ipynb` | 4 | FFT, PSD (Welch, periodogram), 1/f analysis |
+| 3 | `wavelets.ipynb` | 5, 6 | DWT decomposition, CWT scalogram, regime detection |
+| 4 | `features.ipynb` | 7, 8, 9 | STFT spectrogram, bandpass filtering, signal denoising |
+| 5 | `overall.ipynb` | CO1–CO5 | Capstone: market efficiency, calibration, LZ76 complexity |
 
 ---
 
