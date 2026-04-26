@@ -2,6 +2,8 @@
 data/raw_html/
 data/raw/
 data/processed/
+data/pdf/
+data/raw_doc/
 
 # Python
 __pycache__/
@@ -24,3 +26,7 @@ venv/
 .vscode/
 *.swp
 *.swo
+
+# Context
+
+context_prompt.txt

@@ -23,7 +23,7 @@ from bs4 import BeautifulSoup
 # CONFIGURATION — Edit these lines as needed
 # ============================================================================
 
-INPUT_PATH = "./raw_html"         # <-- EDIT: single .html file path OR folder of .html files
+INPUT_PATH = "./raw_html/race_results"         # <-- EDIT: single .html file path OR folder of .html files
 OUTPUT_DIR = "./raw"              # <-- EDIT: directory where CSV files will be saved
 MEETINGS_FILE = "meetings.csv"    # <-- EDIT: meetings CSV filename
 RACES_FILE = "races.csv"          # <-- EDIT: races CSV filename

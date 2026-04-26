@@ -1,6 +1,7 @@
 from pathlib import Path
 import requests
 import time
+import pdfkit   # NEW
 
 ARCHIVE_API = "https://rwitc.com/new/lib/fetchArchives.php"
 
@@ -8,12 +9,12 @@ HEADERS = {
     "User-Agent": "Mozilla/5.0 (Research scraper for horse racing data)"
 }
 
-RAW_DIR = Path("raw_html/race_day_report")
-RAW_DIR.mkdir(parents=True, exist_ok=True)
+PDF_DIR = Path("pdf/acceptance_pages")   # CHANGED
+PDF_DIR.mkdir(parents=True, exist_ok=True)
 
 
 # -----------------------------------------------------------
-# Get race dates from archive API
+# Get race dates from archive API (UNCHANGED)
 # -----------------------------------------------------------
 def get_race_dates(start, end):
 
@@ -36,30 +37,28 @@ def get_race_dates(start, end):
     for item in data:
 
         if item.get("className") == "raceresults":
-
             race_dates.append(item["start"][:10])
 
     return sorted(set(race_dates))
 
 
 # -----------------------------------------------------------
-# Build result URL
+# Build ACCEPTANCE URL (CHANGED)
 # -----------------------------------------------------------
-def build_result_url(date):
+def build_acceptance_url(date):
 
-    return f"https://rwitc.com/new/raceDayReport.php?date={date}"
+    return f"https://rwitc.com/run_races/Acceptance_{date}.htm"
 
 
 # -----------------------------------------------------------
-# Download individual result page
+# Download + convert to PDF (CHANGED)
 # -----------------------------------------------------------
-def download_result_page(date):
+def download_acceptance_pdf(date):
 
-    url = build_result_url(date)
+    url = build_acceptance_url(date)
+    pdf_path = PDF_DIR / f"{date}.pdf"
 
-    file_path = RAW_DIR / f"{date}.html"
-
-    if file_path.exists():
+    if pdf_path.exists():
         print("Skipping", date)
         return
 
@@ -70,22 +69,29 @@ def download_result_page(date):
             print("Missing page", date)
             return
 
-        file_path.write_text(r.text, encoding="utf-8")
+        # TEMP HTML (needed for pdfkit)
+        temp_html = PDF_DIR / f"{date}.html"
+        temp_html.write_text(r.text, encoding="utf-8")
 
-        print("Saved", date)
+        # Convert → PDF
+        pdfkit.from_file(str(temp_html), str(pdf_path))
+
+        temp_html.unlink()  # cleanup
+
+        print("Saved PDF", date)
 
     except Exception as e:
         print("Download failed", date, e)
 
-    time.sleep(0)  # polite delay
+    time.sleep(1)
 
 
 # -----------------------------------------------------------
-# MAIN PIPELINE
+# MAIN PIPELINE (MINIMAL CHANGE)
 # -----------------------------------------------------------
 def run_scraper():
 
-    for year in range(2008, 2027):
+    for year in range(2023, 2027):
 
         print("\nChecking year", year)
 
@@ -97,13 +103,11 @@ def run_scraper():
         print("Race days found:", len(race_dates))
 
         for d in race_dates:
-
-            download_result_page(d)
+            download_acceptance_pdf(d)   # CHANGED
 
 
 # -----------------------------------------------------------
 # RUN
 # -----------------------------------------------------------
 if __name__ == "__main__":
-
     run_scraper()
