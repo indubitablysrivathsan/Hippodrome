@@ -1,6 +1,7 @@
 # Data
 data/raw_html/
 data/raw/
+data/cleaned/
 data/processed/
 data/pdf/
 data/raw_doc/
