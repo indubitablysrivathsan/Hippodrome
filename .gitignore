@@ -29,5 +29,8 @@ venv/
 *.swo
 
 # Context
-
 context_prompt.txt
+
+#db
+db/log
+db/rwitc.db
