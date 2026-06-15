@@ -28,6 +28,13 @@ venv/
 *.swp
 *.swo
 
+# Node / Frontend
+node_modules/
+dist/
+build/
+dist-ssr/
+*.local
+
 # Context
 context_prompt.txt
 
